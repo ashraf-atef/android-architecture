@@ -72,11 +72,11 @@ public class AddEditTaskViewModelTest {
 
         // Then a task is saved in the repository and the view updates
         verify(mTasksRepository).saveTask(any(Task.class)); // saved to the model
-        mTestObserver.assertValueAt(1, state -> state.isSaved() && !state.isEmpty());
+        mTestObserver.assertValueAt(1, state -> state.isSaved() && !state.isEmpty().getContent());
     }
 
     @Test
-    public void saveTask_emptyTaskShowsErrorUi() {
+    public void saveTask_emptyTaskShowsErrorUiOnce() {
         // When an empty task's saving intent is emitted by the view
         mAddEditTaskViewModel.processIntents(Observable.just(
                 AddEditTaskIntent.SaveTask.create(null, "", "")
@@ -84,7 +84,12 @@ public class AddEditTaskViewModelTest {
 
         // Then an empty task state is emitted back to the view
         verify(mTasksRepository, never()).saveTask(any(Task.class)); // saved to the model
-        mTestObserver.assertValueAt(1, AddEditTaskViewState::isEmpty);
+        mTestObserver.assertValueAt(1,
+                addEditTaskViewState -> addEditTaskViewState.isEmpty().getContent());
+
+        // Assert that empty Task Shows Error Ui Once
+        mTestObserver.assertValueAt(1,
+                addEditTaskViewState -> addEditTaskViewState.isEmpty().getContent() == null);
     }
 
     @Test
@@ -98,7 +103,7 @@ public class AddEditTaskViewModelTest {
 
         // Then a task is saved in the repository and the view updates
         verify(mTasksRepository).saveTask(any(Task.class)); // saved to the model
-        mTestObserver.assertValueAt(1, state -> state.isSaved() && !state.isEmpty());
+        mTestObserver.assertValueAt(1, state -> state.isSaved() && !state.isEmpty().getContent());
     }
 
     @Test

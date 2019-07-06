@@ -128,8 +128,9 @@ public class AddEditTaskFragment extends Fragment implements MviView<AddEditTask
             showTasksList();
             return;
         }
-        if (state.isEmpty()) {
-            showEmptyTaskError();
+        Boolean isEmpty = state.isEmpty().getContent();
+        if (isEmpty != null && isEmpty) {
+                showEmptyTaskError();
         }
         if (!state.title().isEmpty()) {
             setTitle(state.title());

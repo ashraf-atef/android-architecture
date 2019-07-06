@@ -20,6 +20,7 @@ import android.arch.lifecycle.ViewModel;
 import android.support.annotation.NonNull;
 
 import com.example.android.architecture.blueprints.todoapp.data.Task;
+import com.example.android.architecture.blueprints.todoapp.mvibase.Event;
 import com.example.android.architecture.blueprints.todoapp.mvibase.MviAction;
 import com.example.android.architecture.blueprints.todoapp.mvibase.MviIntent;
 import com.example.android.architecture.blueprints.todoapp.mvibase.MviResult;
@@ -182,9 +183,9 @@ public class AddEditTaskViewModel extends ViewModel
                     AddEditTaskResult.CreateTask createTaskResult =
                             (AddEditTaskResult.CreateTask) result;
                     if (createTaskResult.isEmpty()) {
-                        return stateBuilder.isEmpty(true).build();
+                        return stateBuilder.isEmpty(new Event<>(true)).build();
                     } else {
-                        return stateBuilder.isEmpty(false).isSaved(true).build();
+                        return stateBuilder.isEmpty(new Event<>(false)).isSaved(true).build();
                     }
                 }
                 if (result instanceof AddEditTaskResult.UpdateTask) {

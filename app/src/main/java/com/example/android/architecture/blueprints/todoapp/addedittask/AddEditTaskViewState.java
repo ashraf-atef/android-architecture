@@ -3,6 +3,7 @@ package com.example.android.architecture.blueprints.todoapp.addedittask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.example.android.architecture.blueprints.todoapp.mvibase.Event;
 import com.example.android.architecture.blueprints.todoapp.mvibase.MviViewState;
 import com.google.auto.value.AutoValue;
 
@@ -12,7 +13,7 @@ abstract class AddEditTaskViewState implements MviViewState {
 
     abstract String description();
 
-    abstract boolean isEmpty();
+    abstract Event<Boolean> isEmpty();
 
     abstract boolean isSaved();
 
@@ -26,18 +27,19 @@ abstract class AddEditTaskViewState implements MviViewState {
                 .title("")
                 .description("")
                 .error(null)
-                .isEmpty(false)
+                .isEmpty(Event.idle(false))
                 .isSaved(false)
                 .build();
     }
 
     @AutoValue.Builder
+
     static abstract class Builder {
         abstract Builder title(String title);
 
         abstract Builder description(String description);
 
-        abstract Builder isEmpty(boolean isEmpty);
+        abstract Builder isEmpty(Event<Boolean> isEmpty);
 
         abstract Builder isSaved(boolean isSaved);
 
