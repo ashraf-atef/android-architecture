@@ -27,7 +27,7 @@ abstract class AddEditTaskViewState implements MviViewState {
                 .title("")
                 .description("")
                 .error(null)
-                .isEmpty(Event.idle(false))
+                .isEmpty(new Event<>(false))
                 .isSaved(false)
                 .build();
     }

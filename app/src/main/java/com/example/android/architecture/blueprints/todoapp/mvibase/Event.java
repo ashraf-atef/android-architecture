@@ -15,12 +15,6 @@ public class Event<T> {
     private T content;
     private boolean handled = false;
 
-    public static <T> Event<T> idle(T content) {
-        Event<T> event = new Event<>(content);
-        event.setHandled(true);
-        return event;
-    }
-
     public Event(T content) {
         if (content == null)
             throw new IllegalArgumentException("null values in Event are not allowed.");
